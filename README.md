@@ -10,7 +10,7 @@
 - [ ] Setup services.
 - [ ] Deploy a cli tool
 
-## Resources, Roadmap and References
+## Resources and References
 - [ ] [AWS-S3-tutorial-for-beginners-official](https://www.youtube.com/watch?v=tfU0JEZjcsg)
 - [ ] [AWS-Learner-lab](https://labs.vocareum.com/web/2370068/1491694.0/ASNLIB/public/docs/lang/en-us/README.html#envNav)
 - [ ] [AWS-Setup-Credentials](https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/setup-credentials.html)
