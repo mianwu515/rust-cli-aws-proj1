@@ -1,4 +1,4 @@
-# A Rust CLI tool deployed with AWS
+# A Rust CLI tool to deploy onto AWS
 
 ## Goal
 * Build a cli tool with Rust
