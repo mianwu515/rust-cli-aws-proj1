@@ -1,5 +1,7 @@
 # A Rust CLI in an AWS Lambda Function.
 
+This project has been moved [here](https://github.com/mianwu515/rust-world-spr23/tree/main/week2/my-first-lambda-function).
+
 ## Goal
 * Build a cli tool with Rust
 * Deploy the project onto AWS by interacting with some cloud service, e.g. S3, Cloud9, Lambda
