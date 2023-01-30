@@ -1,56 +1,51 @@
-# A Rust CLI tool to deploy onto AWS
+# A Rust CLI in an AWS Lambda Function.
 
 ## Goal
 * Build a cli tool with Rust
-* Deploy the project onto AWS services, e.g. S3, Cloud9
-* Learn AWS (probably leverage S3 and Cloud9) and Rust (mainly Clap in this project) as the project grows.
+* Deploy the project onto AWS by interacting with some cloud service, e.g. S3, Cloud9, Lambda
+* Learn AWS (probably leverage S3, Cloud9 or Lambda) and Rust (mainly Clap in this project) as the project grows.
 
-## Steps
-* To first setup a lambda-rust installation env and enter that virtual environment, run  
+## Development and reproduce
 ```bash
-python3 -m venv ~/.venv
-source ~/.venv/bin/activate
+# cargo install cargo-lambda (run if you have never installed it; this cmd can take some time to finish since it's going to compile the binary in your system)
+cargo lambda new my-first-lambda-function
+
+# write code..
+
+# rustup target add x86_64-unknown-linux-musl (run if you have never installed it)
+cargo build --release --target x86_64-unknown-linux-musl
+cp target/x86_64-unknown-linux-musl/release/myfirstlambdafunction ./bootstrap
+zip lambda.zip bootstrap
+# I then use the AWS Lambda console to submit the zip file
 ```
 
-* If you haven't installed python3, run
-```bash
-cd /
-sudo apt-get install python3-venv
+## Test
+```json
+Input
+{
+  "choice": "paper"
+}
+
+Output
+{
+  "req_id": "33a2469e-cd51-4924-8e49-7eb482573454",
+  "msg": "You chose: paper, Computer chose: rock, Result: You win!"
+}
 ```
 
-* To install _cargo-lambda_, run 
-```bash
-pip3 install cargo-lambda
-```
+![test-result](test.png "test result")
 
+## References
+* [Cargo-Lambda](https://crates.io/crates/cargo-lambda)
+* [install-cargo-lambda](https://pypi.org/project/cargo-lambda/0.10.0rc1/)
+* [aws-sdk-for-rust-lambda](https://docs.aws.amazon.com/sdk-for-rust/latest/dg/lambda.html)
+* [aws-lambda-rust-runtime](https://github.com/awslabs/aws-lambda-rust-runtime#aws-cli)
+* [marco-polo-lambda](https://github.com/nogibjj/rust-mlops-template/tree/main/marco-polo-lambda)
 
-* To create a lambda function, run
-```bash
-cargo lambda new [your_function_name]
-```
-
-* To Build and deploy your lambda functions, run
-```bash
-make release
-```
-, which is actually running ```cargo lambda build --release```
-
-* To make an Amazon Linux 2 version release, run
-```bash
-make release-arm
-```
-, which is actually running ```cargo lambda build --release --arm64``` (see [Cross-compiling your lambda functions](https://github.com/awslabs/aws-lambda-rust-runtime#1-cross-compiling-your-lambda-functions))
-
-## Roadmap
-- [ ] Learn AWS through resources listed in References.
-- [ ] Setup services.
-- [ ] Deploy a cli tool
-
-## Resources and References
-- [ ] [AWS-S3-tutorial-for-beginners-official](https://www.youtube.com/watch?v=tfU0JEZjcsg)
-- [ ] [AWS-Learner-lab](https://labs.vocareum.com/web/2370068/1491694.0/ASNLIB/public/docs/lang/en-us/README.html#envNav)
-- [ ] [AWS-Setup-Credentials](https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/setup-credentials.html)
-- [ ] [AWS-Learner-Lab](https://awsacademy.instructure.com/courses/37397)
+- [AWS-S3-tutorial-for-beginners-official](https://www.youtube.com/watch?v=tfU0JEZjcsg)
+- [AWS-Learner-lab](https://labs.vocareum.com/web/2370068/1491694.0/ASNLIB/public/docs/lang/en-us/README.html#envNav)
+- [AWS-Setup-Credentials](https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/setup-credentials.html)
+- [AWS-Learner-Lab](https://awsacademy.instructure.com/courses/37397)
 * [Build-an-AWS-Lambda-Function-Deploy-in-Rust](https://www.youtube.com/watch?v=jUTiHUTfGYo)
 * [Cloud-computing-for-data](https://paiml.com/docs/home/books/cloud-computing-for-data/)
 * [rust-tutorial](https://nogibjj.github.io/rust-tutorial/chapter_1.html)
@@ -58,5 +53,3 @@ make release-arm
 * [rust-language-official-tool](https://doc.rust-lang.org/book/)
 * [rust-cli-template](https://github.com/kbknapp/rust-cli-template)
 * [command-line-rust](https://github.com/kyclark/command-line-rust)
-
-
